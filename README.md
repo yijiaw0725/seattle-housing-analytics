@@ -10,6 +10,7 @@ Exploratory analysis of King County residential real estate — combining public
 |----------|-------------|
 | [`kc_housing_eda.ipynb`](kc_housing_eda.ipynb) | Full EDA across all four KC Assessor datasets: price trends, structural features, parcel attributes, waterfront premiums, and feature engineering |
 | [`kc_schools_housing.ipynb`](kc_schools_housing.ipynb) | School quality analysis: OSPI pass rates, GIS spatial join (parcel → school district), and school quality premium quantification |
+| [`kc_buyer_guide.ipynb`](https://nbviewer.org/github/yijiaw0725/seattlle-housing-analytics/blob/main/kc_buyer_guide.ipynb) | Buyer-focused guide: choropleth maps, school quality vs price, value score ranking, waterfront/view premiums, and budget cheat sheet by district *(rendered via nbviewer)* |
 
 ---
 
@@ -43,6 +44,7 @@ Exploratory analysis of King County residential real estate — combining public
 seattlle-housing-analytics/
 ├── kc_housing_eda.ipynb              # KC Assessor EDA (price trends, features, premiums)
 ├── kc_schools_housing.ipynb          # School quality + housing price analysis
+├── kc_buyer_guide.ipynb              # Buyer guide: maps, value scores, budget by district
 ├── education_data/
 │   ├── ospi_assessment_2324_king.csv # OSPI school pass rates
 │   ├── kc_school_districts.geojson   # School district boundaries (GIS)
@@ -93,6 +95,12 @@ jupyter notebook
 - **District–price correlation**: r = 0.77 between OSPI composite pass rate and median district house price
 - **School quality premium**: Top-quartile school district homes sell for **+98.6%** over bottom-quartile ($1.02M vs $511K median, SFR 2015–2024)
 - **GIS pipeline**: 669K parcel coordinates → point-in-polygon → 100% district assignment, 99.5% OSPI match rate
+
+### Buyer Guide ([`kc_buyer_guide.ipynb`](https://nbviewer.org/github/yijiaw0725/seattlle-housing-analytics/blob/main/kc_buyer_guide.ipynb))
+- **Interactive choropleth maps**: median price, school quality, and value score by school district
+- **Value score ranking**: school quality per dollar — identifies undervalued districts (e.g. Tukwila, Auburn)
+- **Budget guide**: 3BR price distribution by district, colored by school quality tier
+- **Waterfront/view premiums**: body-of-water breakdown and view feature pricing
 
 ---
 
