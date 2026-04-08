@@ -108,26 +108,39 @@ Price per sq ft has risen sharply — from ~$150 in 1990 to over $450 by 2024. H
 
 ### 3.2 Charts
 
-- **Pass rate histograms — Math, ELA, Science** — distribution across all King County schools; bimodal shape (clear high/low performer split)
-- **Top 15 districts by subject pass rate** — grouped bar chart (Mercer Island, Lake Washington, Bellevue lead)
-- **Composite score distribution — all schools** — cumulative ranking curve
-- **Math vs. ELA correlation** — scatter plot
+- **Pass rate histograms — Math, ELA, Science** — distribution across all King County schools
+- **Top 15 districts by subject pass rate** — grouped bar chart
+- **Math vs. ELA correlation + composite score ranking curve** — two-panel chart
 - **School quality vs. median house price by district** — bubble chart (bubble size = transaction volume)
-- **Median SFR price by school quality quartile** — bar chart (Q1 lowest to Q4 highest)
+- **Median SFR price by school quality quartile** — bar chart
 
 ### 3.3 Key Findings
 
+**Pass rate distributions**
+
+![Pass Rate Distributions — Math, ELA, Science](assets/school_pass_rates.png)
+
+Pass rates vary widely across King County schools — from under 10% to over 90%. The county median is 53.4% for Math, 62.8% for ELA, and 55.0% for Science. Math shows the widest spread and the lowest median, suggesting it is the most differentiating subject across schools.
+
+**Top districts and subject correlation**
+
+![Top 15 King County Districts — Pass Rate by Subject](assets/school_top15_districts.png)
+
+The top-performing districts (Mercer Island, Lake Washington, Bellevue, Issaquah) score consistently above 70% across all three subjects. The gap between top and bottom districts is substantial — roughly 50 percentage points on Math.
+
+![Math vs. ELA Correlation and Composite Score Distribution](assets/school_correlation.png)
+
+Math and ELA pass rates are tightly correlated across schools (r = 0.90), meaning a school that performs well in one subject almost always performs well in the other. The composite score distribution (right panel) confirms a wide, relatively smooth spread across all ~400 schools — no sharp cliff, but a clear gap between the top and bottom ends.
+
+**School quality and house prices**
+
 ![School Quality vs. House Price by District](assets/school_price_scatter.png)
 
-Each bubble above represents one school district. The x-axis shows the OSPI composite pass rate; the y-axis shows median SFR sale price. The strong upward trend (r = 0.77) confirms that school quality and home prices are closely linked at the district level. Mercer Island sits at the top right — the highest-scoring and most expensive district in the county.
+Each bubble represents one school district. The strong upward trend (r = 0.77) confirms that school quality and median home prices are closely linked at the district level. Mercer Island sits at the top right — the highest-scoring and most expensive district in the county.
 
 ![School Quality Premium: Top vs. Bottom Quartile](assets/school_premium.png)
 
-Grouping districts into quartiles makes the premium concrete: the bottom 25% of districts by school quality has a median sale price of $511K, while the top 25% reaches $1,015K — a **+99% premium**.
-
-- Pass rates range from ~20% to ~90% across schools, with a bimodal distribution — a clear split between high- and low-performing schools.
-- Math and ELA pass rates are highly correlated (r > 0.9), supporting the composite average as a reasonable single quality signal.
-- Top districts (Mercer Island, Lake Washington, Bellevue) consistently outperform the county average across all three subjects.
+Grouping districts into quartiles makes the premium concrete: the bottom 25% of districts has a median sale price of $511K, while the top 25% reaches $1,015K — a **+99% premium**. Note that Q2 to Q3 shows a smaller step ($790K → $821K) compared to Q1 to Q2 ($511K → $790K), suggesting the price premium is steepest at the lower end of school quality.
 
 ---
 
