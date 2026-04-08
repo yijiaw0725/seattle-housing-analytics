@@ -138,6 +138,8 @@ Math and ELA pass rates are tightly correlated across schools (r = 0.90), meanin
 
 **School quality and house prices**
 
+The composite score is the simple average of a school's Math, ELA, and Science pass rates — a single number summarizing overall academic performance, used here to rank and compare schools and districts.
+
 ![School Quality vs. House Price by District](assets/school_price_scatter.png)
 
 Each bubble represents one school district. The strong upward trend (r = 0.77) confirms that school quality and median home prices are closely linked at the district level. Mercer Island sits at the top right — the highest-scoring and most expensive district in the county.
@@ -145,6 +147,8 @@ Each bubble represents one school district. The strong upward trend (r = 0.77) c
 ![School Quality Premium: Top vs. Bottom Quartile](assets/school_premium.png)
 
 Grouping districts into quartiles makes the premium concrete: the bottom 25% of districts has a median sale price of $511K, while the top 25% reaches $1,015K — a **+99% premium**. Note that Q2 to Q3 shows a smaller step ($790K → $821K) compared to Q1 to Q2 ($511K → $790K), suggesting the price premium is steepest at the lower end of school quality.
+
+These figures are raw comparisons with no other variables controlled. High-scoring districts also tend to have larger homes, better locations, and higher incomes — so not all of the +99% is attributable to school quality alone. Isolating the school effect is handled in the price model.
 
 ---
 
