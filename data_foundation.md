@@ -163,8 +163,8 @@ These figures are raw comparisons with no other variables controlled. High-scori
 | Coordinate filtering | Retained only records with valid GPS coordinates (~85% of all SPD incidents) |
 | Geographic restriction | Analysis limited to Seattle city limits; King County suburbs excluded |
 | Deduplication | Most recent sale per PIN; first building record per PIN |
-| Crime score computation | BallTree haversine query: counted serious crimes within 500m of each property in the 12 months before sale date |
-| Neighborhood stability filter | Neighborhoods with fewer than 20 transactions excluded from aggregate analysis |
+| Crime score computation | For each sale, counted serious crimes within 500m and in the 12 months before the sale date. Used a BallTree spatial index (an algorithm for fast nearest-neighbor search across large GPS datasets) with the haversine distance formula (which accounts for the Earth's curvature when computing real-world distances from coordinates) |
+| Neighborhood stability filter | Neighborhoods with fewer than 20 transactions excluded — small samples produce unreliable median prices that may reflect one or two outlier sales rather than true market levels |
 
 ### 4.2 Charts
 
@@ -178,11 +178,30 @@ These figures are raw comparisons with no other variables controlled. High-scori
 
 ### 4.3 Key Findings
 
-![Seattle SFR: Safety Quintile vs. Price](assets/crime_quintile.png)
+**Crime trends over time**
 
-The two panels above tell different stories. On the left, median sale price is roughly flat across all five crime quintiles (~$785K–$860K), with no clear downward trend — suggesting crime alone does not drive raw prices down. On the right, median price per sq ft actually **increases** from the safest quintile ($429/sqft) to the highest-crime quintile ($564/sqft). This is because high-crime areas in Seattle are denser urban neighborhoods where homes are smaller but land is more expensive — the crime discount is real, but it is masked by the urban density premium when looking at total price.
+![Seattle Crime Volume by Year and Category Mix](assets/crime_trend.png)
 
-- Total crime volume was stable at 70–77K incidents per year from 2015–2024. Serious crime rose ~9% (2015 to 2022 peak), with violent crime up ~45% over the same period.
-- The direct correlation between nearby crime and sale price is real but modest: r = −0.105 (serious crime) and r = −0.156 (violent crime).
-- Urban amenities (walkability, proximity to employment and services) partially offset the crime discount in neighborhoods such as Capitol Hill and First Hill.
-- Low-crime neighborhoods such as Magnolia and Laurelhurst correlate with higher prices, but their relative isolation is also a contributing factor.
+Total crime volume was stable at 70–77K incidents per year across the full 2015–2024 period. Serious crime rose ~9% from 2015 to a 2022 peak before declining slightly. Violent crime — a much smaller share — rose ~45% over the same period. Property crime consistently accounts for roughly half of all incidents.
+
+**Neighborhood variation**
+
+![Top 20 Highest and Lowest Crime Neighborhoods](assets/crime_neighborhoods.png)
+
+Crime is highly concentrated by neighborhood. Queen Anne, Capitol Hill, and Downtown Commercial rank among the highest, each with over 14,000 serious incidents across 2020–2024. The lowest-crime neighborhoods — Commercial Harbor Island, Pigeon Point, Madison Park — record under 500 incidents over the same period. The parenthetical figures show the violent crime share per neighborhood, which varies from ~10% to over 30%.
+
+**Crime and sale price**
+
+![Sale Price vs. Nearby Crime Count](assets/crime_price_scatter.png)
+
+At the individual sale level, the relationship between nearby crime and price is weak and noisy. The bin median line (red) shows a slight downward drift at very low crime counts but quickly flattens — confirming that crime is a real but minor direct price driver.
+
+![Crime Discount: Safety Quintile vs. Price](assets/crime_quintile.png)
+
+Grouping sales into five crime exposure quintiles reveals the headline result: the raw price gap between the safest and most-crime-exposed quintile is only **−1.1%** ($820K vs. $805K). The per-sqft panel tells the opposite story — price per sqft *increases* from $429 (safest) to $564 (highest crime). High-crime areas in Seattle are denser urban neighborhoods where homes are smaller but land value is high, masking any crime discount in the total price figure.
+
+**Neighborhood-level pattern**
+
+![Neighborhood Crime Exposure vs. Price per SqFt](assets/crime_price_sqft_bubble.png)
+
+At the neighborhood level, the positive correlation between crime exposure and price per sqft (r = 0.37) is visible across the city. Magnolia sits in the bottom-left — low crime, moderate per-sqft price — consistent with its suburban character. High-crime, high-price neighborhoods cluster in the upper right, reflecting urban density rather than a crime premium.
