@@ -23,6 +23,8 @@ Four public datasets were combined for this analysis. Each is described briefly 
 
 **Source:** `kc_housing_eda.ipynb` · KC Assessor (RPSale, ResBldg, Parcel, LookUp)
 
+> **SFR** (Single-Family Residence) — a standalone home on its own parcel, occupied by one household. All housing analysis in this study is restricted to SFR properties.
+
 ### 2.1 Data Preparation
 
 | Step | What was done | Why |
@@ -42,7 +44,6 @@ Four public datasets were combined for this analysis. Each is described briefly 
 - **SalePrice vs. SqFtTotLiving** — scatter with trend line
 - **Median price and record count by building grade** — dual-axis bar + line
 - **Price distribution by building grade** — box plots
-- **Median price by traffic noise level** — bar chart
 - **Median price per sq ft by year** — $/sqft trend line
 
 ### 2.3 Key Findings
@@ -80,10 +81,6 @@ Building grade has a steep non-linear effect. The median price escalates from ~$
 ![Sale Price — Waterfront vs Non-Waterfront](assets/waterfront_premium.png)
 
 Waterfront properties have a median sale price of ~$1.4M vs. ~$850K for non-waterfront — a **+76.9% premium**. The waterfront distribution is also far wider, with a long upper tail reflecting high-value shoreline parcels.
-
-![Median Sale Price by Traffic Noise Level](assets/traffic_noise.png)
-
-Traffic noise has a measurable but modest effect. Median price drops from ~$740K (no noise) to ~$715K (moderate) — a difference of roughly $25K or ~3%. The effect is real but smaller than might be expected.
 
 ![Median Price per SqFt, Effective Age, and View Segments](assets/price_sqft_view.png)
 
