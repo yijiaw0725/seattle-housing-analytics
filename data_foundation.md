@@ -118,6 +118,8 @@ Price per sq ft has risen sharply — from ~$150 in 1990 to over $450 by 2024. H
 
 **Pass rate distributions**
 
+Washington State tests all public school students in three subjects. **Math** and **ELA** (English Language Arts — reading and writing) are tested annually in grades 3–8 and grade 11 via the SBAC assessment. **Science** is tested at grades 5, 8, and 11 via the WCAS assessment. The pass rate for each subject is the share of a school's tested students who scored at or above the state's grade-level standard.
+
 ![Pass Rate Distributions — Math, ELA, Science](assets/school_pass_rates.png)
 
 Pass rates vary widely across King County schools — from under 10% to over 90%. The county median is 53.4% for Math, 62.8% for ELA, and 55.0% for Science. Math shows the widest spread and the lowest median, suggesting it is the most differentiating subject across schools.
