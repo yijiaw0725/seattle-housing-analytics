@@ -80,7 +80,7 @@ Building grade has a steep non-linear effect. The median price escalates from ~$
 
 ![Sale Price — Waterfront vs Non-Waterfront](assets/waterfront_premium.png)
 
-Waterfront properties have a median sale price of ~$1.4M vs. ~$850K for non-waterfront — a **+76.9% premium**. The waterfront distribution is also far wider, with a long upper tail reflecting high-value shoreline parcels.
+Waterfront properties have a median sale price of ~$1.4M vs. ~$850K for non-waterfront — a **+76.9% premium** (i.e. buyers pay roughly three-quarters more for a home on the water). The distribution is also far wider, with a long upper tail reflecting high-value shoreline parcels. Note that this is a raw comparison: waterfront homes tend to be larger and higher-grade as well, so the premium attributable purely to water location is lower — isolating that effect is handled in the price model.
 
 ![Median Price per SqFt, Effective Age, and View Segments](assets/price_sqft_view.png)
 
