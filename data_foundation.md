@@ -25,13 +25,13 @@ Four public datasets were combined for this analysis. Each is described briefly 
 
 ### 2.1 Data Preparation
 
-| Step | What was done |
-|------|---------------|
-| Deduplication | Kept the most recent sale per parcel (PIN); kept the first building record per PIN |
-| Arms-length filter | SaleReason=1, PropertyClass=8, SalePrice>$10K → 881K records retained (36.5% of all sales) |
-| SFR filter | NbrLivingUnits=1, SqFtTotLiving 200–15,000, YrBuilt 1870–2024 → ~479K buildings |
-| Code decoding | SaleReason, HeatSystem, WfntLocation decoded via LookUp table |
-| Feature engineering | 94.9% of buildings have YrRenovated=0; created `EffectiveAge = SaleYear − max(YrBuilt, YrRenovated)` |
+| Step | What was done | Why |
+|------|---------------|-----|
+| Deduplication | Kept the most recent sale per parcel (PIN); kept the first building record per PIN | The same property may have sold multiple times — one row per property is needed for modeling. The most recent sale best reflects current value. Multiple building records per PIN represent secondary structures (e.g. garage unit); only the primary building is kept |
+| Arms-length filter | `SaleReason=1` (open-market transaction), `PropertyClass=8` (residential land with a building on it), `SalePrice>$10K` (real price, not a symbolic transfer) → 881K records retained (36.5% of all sales) | Isolates genuine buyer-seller market transactions. Non-market sales (foreclosures, government acquisitions, intra-family $1 deeds) do not reflect what a willing buyer would pay |
+| SFR filter | `NbrLivingUnits=1` (single-family, not duplex or apartment), `SqFtTotLiving` 200–15,000 sq ft (plausible size), `YrBuilt` 1870–2024 (valid build year) | Multi-unit properties follow different pricing dynamics. Size and age extremes are almost always data entry errors |
+| Code decoding | `SaleReason`, `HeatSystem`, `WfntLocation` decoded via LookUp table | These fields are stored as numeric codes in the raw CSV; the LookUp table maps them to human-readable labels for analysis |
+| Feature engineering | 94.9% of buildings have `YrRenovated=0` (field is blank or never renovated) — so `YrRenovated` cannot be used directly. Created `EffectiveAge = SaleYear − max(YrBuilt, YrRenovated)` | Captures how old the property actually appears: if renovated, effective age resets to the renovation year; otherwise it reflects the original build year |
 
 ### 2.2 Charts
 
@@ -47,15 +47,47 @@ Four public datasets were combined for this analysis. Each is described briefly 
 
 ### 2.3 Key Findings
 
+**Price trend & seasonality**
+
 ![King County Median SFR Sale Price 1990–2024](assets/price_trend.png)
 
-The chart above shows the long-run price trajectory across King County. Median SFR price grew from ~$150K (1990) to a peak near $900K (2022), with two distinct run-ups — a recovery from the 2008 financial crisis (2012–2018) and a COVID-era surge (2020–2022) — followed by a modest correction in 2023–2024.
+Median SFR price grew from ~$150K (1990) to a peak near $900K (2022), with two distinct run-ups: a post-crisis recovery (2012–2018) and a COVID-era surge (2020–2022), followed by a modest correction in 2023–2024. Transaction volume peaked in 2005–2007 and again in 2020–2021.
 
-- Transaction volume peaked in 2005–2007 and again in 2020–2021; declined post-2022.
-- Living area is the strongest single predictor of price (r ≈ 0.55+). Price roughly doubles from Grade 7 (Average, ~$500K) to Grade 10 (~$1.2M+).
-- Waterfront properties carry a premium of ~150%+ over non-waterfront comparables.
-- Severe traffic noise is associated with a ~10–15% price discount.
-- Spring and summer see the highest transaction volumes; prices are marginally higher than fall and winter.
+![Seasonal Pattern — Volume & Median Price](assets/seasonal_pattern.png)
+
+Transaction volume peaks in May–June and falls sharply in winter. Median price follows a similar pattern, reaching ~$630K in summer vs. ~$575K in January — a seasonal swing of roughly 10%.
+
+---
+
+**Building characteristics**
+
+![Residential Building Key Feature Distributions](assets/building_features.png)
+
+The stock is concentrated: Grade 7 (Average) accounts for 40.7% of all buildings, Condition 3 (Average) for 66.5%, and 3-bedroom homes are most common. Living area is right-skewed with a median around 1,990 sq ft. Most homes were built in the 1960s–70s, with another wave in the 2000s.
+
+![Pearson Correlation — Merged Dataset](assets/correlation_heatmap.png)
+
+Living area (r = 0.52) and building grade (r = 0.51) are the two strongest predictors of sale price. Full bath count (r = 0.45) and year built (r = 0.22) follow. Lot size and traffic noise have weak direct correlations.
+
+![Median Sale Price & Record Count by Building Grade](assets/grade_price.png)
+
+Building grade has a steep non-linear effect. The median price escalates from ~$400K at Grade 6 to over $4M at Grade 13. Grade 7 (Average) has the most records by far, while grades above 10 are rare and command significant premiums.
+
+---
+
+**Location premiums**
+
+![Sale Price — Waterfront vs Non-Waterfront](assets/waterfront_premium.png)
+
+Waterfront properties have a median sale price of ~$1.4M vs. ~$850K for non-waterfront — a **+76.9% premium**. The waterfront distribution is also far wider, with a long upper tail reflecting high-value shoreline parcels.
+
+![Median Sale Price by Traffic Noise Level](assets/traffic_noise.png)
+
+Traffic noise has a measurable but modest effect. Median price drops from ~$740K (no noise) to ~$715K (moderate) — a difference of roughly $25K or ~3%. The effect is real but smaller than might be expected.
+
+![Median Price per SqFt, Effective Age, and View Segments](assets/price_sqft_view.png)
+
+Price per sq ft has risen sharply — from ~$150 in 1990 to over $450 by 2024. Homes with any view command a median of ~$800K vs. ~$600K for no-view non-waterfront homes. Waterfront properties (any view) reach ~$1.3M median.
 
 ---
 
